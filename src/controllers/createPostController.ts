@@ -1,28 +1,23 @@
-import { userModel } from "../models/user";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "./signup.controller";
 import { Request, Response } from "express";
 import { postModel } from "../models/post";
 
-const postController = async (req: Request, res: Response) => {
+const createPostController = async (req: Request, res: Response) => {
   const { post, token } = await req.body;
-
-  const { title, description } = post;
 
   //   @ts-ignore
   const userId = jwt.verify(token, JWT_SECRET)._id;
 
   try {
     const createdPost = await postModel.create({
-      author: userId,
+      authorId: userId,
       ...post,
     });
 
     return res.status(201).json({
       message: `post created successfully`,
-      data: {
-        createdPost,
-      },
+      post: createdPost,
     });
   } catch (error) {
     console.log(error);
@@ -33,4 +28,4 @@ const postController = async (req: Request, res: Response) => {
   }
 };
 
-export { postController };
+export { createPostController };
