@@ -8,11 +8,7 @@ if (!process.env.MONGO_URL) {
   throw new Error("Please add the MONGO_URL environment variable");
 }
 
-mongoose.connect(process.env.MONGO_URL, {
-  // @ts-ignore
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGO_URL);
 
 const database = mongoose.connection;
 
