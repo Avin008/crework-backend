@@ -1,15 +1,35 @@
-import { Schema, Types, model, SchemaTypes } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
-const postSchema = new Schema({
-  authorId: String,
-  title: String,
-  description: String,
-  status: String,
-  priority: String,
-  deadline: Number,
-  postText: String,
+const categorySchema = new Schema({
+  id: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  items: [
+    {
+      id: String,
+      title: String,
+      description: String,
+      priority: String,
+      timestamp: { type: Number, default: () => new Date().getTime() },
+      createdAt: {
+        type: Number,
+        default: () => new Date().getTime(),
+      },
+    },
+  ],
 });
 
-const postModel = model("Post", postSchema);
+const categorySchemaArr = new Schema({
+  category: [categorySchema],
+  authorId: { type: Types.ObjectId },
+});
 
-export { postModel };
+const CategoryModel = model("Category", categorySchema);
+const CategoryArrModel = model("CategoryArr", categorySchemaArr);
+
+export { CategoryModel, CategoryArrModel };

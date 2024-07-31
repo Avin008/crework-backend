@@ -3,6 +3,7 @@ import { userModel } from "../models/user";
 import * as dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
+import { CategoryArrModel, CategoryModel } from "../models/post";
 
 dotenv.config();
 
@@ -28,6 +29,32 @@ const signupController = async (req: Request, res: Response) => {
         .toLowerCase(),
       email,
       password,
+    });
+
+    const createCategory = await CategoryArrModel.create({
+      authorId: createdUser._id,
+      category: [
+        {
+          id: "1",
+          title: "To do",
+          items: [],
+        },
+        {
+          id: "2",
+          title: "In progress",
+          items: [],
+        },
+        {
+          id: "3",
+          title: "Under review",
+          items: [],
+        },
+        {
+          id: "4",
+          title: "Finished",
+          items: [],
+        },
+      ],
     });
 
     return res.status(201).json({
