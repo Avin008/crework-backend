@@ -31,26 +31,26 @@ const signupController = async (req: Request, res: Response) => {
       password,
     });
 
-    const createCategory = await CategoryArrModel.create({
+    const createdCategoryData = await CategoryArrModel.create({
       authorId: createdUser._id,
       category: [
         {
-          id: "1",
+          id: crypto.randomUUID(),
           title: "To do",
           items: [],
         },
         {
-          id: "2",
+          id: crypto.randomUUID(),
           title: "In progress",
           items: [],
         },
         {
-          id: "3",
+          id: crypto.randomUUID(),
           title: "Under review",
           items: [],
         },
         {
-          id: "4",
+          id: crypto.randomUUID(),
           title: "Finished",
           items: [],
         },
