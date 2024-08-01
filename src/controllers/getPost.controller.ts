@@ -14,7 +14,7 @@ const getPostController = async (req: Request, res: Response) => {
       authorId: userId,
     });
 
-    return res.status(200).json({ data: findPosts });
+    return res.status(200).json({ posts: findPosts[0].category });
   } catch (error) {
     return res.status(400).json({
       message: "something went wrong",
